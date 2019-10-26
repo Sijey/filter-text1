@@ -4,12 +4,12 @@
 function f() {
   const str1 = document.getElementById('form1').value;
   const str2 = document.getElementById('form2').value;
-  const arr1 = str1.split(',');
-  const arr2 = str2.split(',');
+  const arr1 = str1.split(',').filter((item, index, arr) => arr.indexOf(item) === index);
+  const arr2 = str2.split(',').filter((item, index, arr) => arr.indexOf(item) === index);
   const uniqueFromArr1 = [];
   const uniqueFromArr2 = [];
-  const uniq1 = document.querySelector('#uniq1');
-  const uniq2 = document.querySelector('#uniq2');
+  const uniq1 = document.querySelector('#table1');
+  const uniq2 = document.querySelector('#table2');
 
   for (const phrase of arr1) {
     if (!arr2.includes(phrase)) {
@@ -25,15 +25,26 @@ function f() {
     }
   }
 
-
   uniq1.innerHTML = `
+      <thead>
+        <tr>
+          <td>Unique from first array ${uniqueFromArr1.length} of ${arr1.length}</td>
+        </tr>
+      </thead>
     ${uniqueFromArr1.map(item => `
-      <tr>
-        <td>${item}</td>
-      </tr>
+      <tbody>
+        <tr>
+          <td>${item}</td>
+        </tr>
+      </tbody>
     `).join('')}
   `
   uniq2.innerHTML = `
+      <thead>
+        <tr>
+          <td>Unique from second array ${uniqueFromArr2.length} of ${arr2.length}</td>
+        </tr>
+      </thead>
     ${uniqueFromArr2.map(item => `
       <tr>
         <td>${item}</td>
